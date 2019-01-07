@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>表单综合</title>
+</head>
+<body>
+	<h1>个人主页</h1> <hr />
+	<h3>你想了解我吗</h3>
+	<p>巴拉巴拉巴拉的个人介绍</p>
+	<p>还是巴拉巴拉的个人介绍</p>
+	<hr />
+	<h3>我的爱好！！！</h3>
+	<p>我有很多爱好，也喜欢各种运动：</p>
+	<ul>
+		<li>篮球</li>
+		<li>台球</li>
+		<li>乒乓球</li>
+		<li>羽毛球</li>
+		<li>游泳</li>
+		<li>瑜伽</li>
+	</ul>
+	<h3>做个简单的调查吧</h3>
+	<form action="file.php" method="post">
+		<label>姓名：</label>
+		<input type="text" name="myname" /><br />
+		性别：
+		<input type="radio" name="gender" value="0">男
+		<input type="radio" name="gender" value="1">女
+		<br />
+		学校：
+		<select>
+			<option value="清华大学">清华大学</option>
+			<option value="北京大学">北京大学</option>
+			<option value="人民大学">人民大学</option>
+			<option value="北京航空航天大学">北京航空航天大学</option>
+		</select>
+		<br />
+		爱好：
+    <select multiple="mulpiple">
+        <option value="网游">网游</option>
+        <option value="唱歌">唱歌</option>
+        <option value="跳舞">跳舞</option>
+        <option value="运动">运动</option>
+        <option value="学习">学习</option>
+        <option value="学习">你想怎么样就怎么样辣</option>
+    </select><br />
+	</form>
+</body>
+</html>
