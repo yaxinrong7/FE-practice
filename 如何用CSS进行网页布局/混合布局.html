@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>混合布局</title>
+	<style type="text/css">
+		body{margin: 0;padding: 0;}
+		.top{height: 100px;background: blue;}
+		.head{width: 800px;height: 100px;background: red;margin: 0 auto;}
+		.main{width: 800px;height: 300px;background: #ccc;margin: 0 auto;}
+		.left{width: 300px;height: 300px;background: yellow;float: left;}
+		.right{width: 500px;height: 300px;background: green;float: right;}
+		.sub_l{width: 90px;height: 300px;background: #09F;float: left;}
+		.sub_r{width: 390px;height: 300px;background: #369;float: right;}
+		.bottom{width: 800px;height: 100px;background: pink;margin: 0 auto;}
+	</style>
+</head>
+<body>
+<div class="top">
+	<div class="head"></div>
+</div>
+<div class="main">
+	<div class="left"></div>
+	<div class="right">
+		<div class="sub_l"></div>
+		<div class="sub_r"></div>
+	</div>
+</div>
+<div class="bottom"></div>
+</body>
+</html>
