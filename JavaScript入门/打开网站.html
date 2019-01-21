@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>打开网页并且关闭</title>
+	<script type="text/javascript">
+		var url='';
+		function openWin(){
+			var choose = confirm("是否要打开新窗口？");
+			if(choose==true){
+				var add = prompt("请输入你想打开的网址","thhps://www.baidu.com");
+				url= window.open(add,'_blank','width=400,height=500,menubar=no,toolbar=no');
+			}
+			else{
+				alert("退出");
+			}
+			//return url;
+		}
+		function closeWin(){
+			url.close();
+		}
+	</script>
+</head>
+<body>
+	<input type="button" value="打开网页" onclick="openWin()" />
+	<br>
+	<br>
+	<input type="button" value="关闭网页" onclick="closeWin()" />
+</body>
+</html>
