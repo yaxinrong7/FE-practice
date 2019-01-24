@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>onfocus</title>
+	<script type="text/javascript">
+		var temp = true;
+		function message(){
+			if (temp == true) {
+				alert("请选择您的职业！");
+				temp = false;
+			}
+		}
+	</script>
+</head>
+<body>
+请选择您的职业：<br>
+<form>
+	<select name="career" onfocus="message()">
+		<option>学生</option>
+		<option>教师</option>
+		<option>工程师</option>
+		<option>演员</option>
+		<option>会计</option>
+	</select>
+</form>
+</body>
+</html>

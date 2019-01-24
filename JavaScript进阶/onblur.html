@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>onblur</title>
+	<script type="text/javascript">
+		function message(){
+			alert("请确定已输入密码后，再移开！");
+		}
+	</script>
+</head>
+<body>
+<form>
+   用户:<input name="username" type="text" value="请输入用户名！">
+   密码:<input name="password" type="text" value="请输入密码！"  onblur="message()">
+ </form>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>setAttribute方法</title>
+</head>
+<body>
+<p id="intro">我的课程</p>
+<ul>
+	<li title="JS">JavaScript</li>
+	<li title="JQ">JQuery</li>
+	<li title="">HTML/CSS</li>
+	<li title="JAVA">JAVA</li>
+	<li title="">PHP</li>
+</ul>
+<h1>以下为li列表title的值，当title值为空时，设置为web前端技术</h1>
+<br>
+<script type="text/javascript">
+	var cons = document.getElementsByTagName("li");
+	for (var i = 0; i < cons.length; i++) {
+		var text = cons[i].getAttribute("title");
+		if(text == ""){
+			cons[i].setAttribute("title","web前端技术");
+			text = cons[i].getAttribute("title");
+			
+		}
+		document.write(text + "<br />");
+		//document.write(cons[i].getAttribute("title") + "<br />");
+	}
+</script>
+</body>
+</html>

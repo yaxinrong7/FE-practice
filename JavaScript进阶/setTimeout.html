@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>计时器</title>
+	<script type="text/javascript">
+		var num = 0;
+		function startCount(){
+			document.getElementById("count").value = num;
+			num += 1;
+			setTimeout("startCount()",1000);
+		}
+		setTimeout("startCount()",1000);
+	</script>
+</head>
+<body>
+<input type="text" id="count">
+</body>
+</html>

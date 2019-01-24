@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>班级成绩</title>
+	<script type="text/javascript">
+		var datestr = new Date();
+		var weekday = ["星期日","星期一","星期二","星期三","星期四","星期五","星期六"];
+		document.write(datestr.getFullYear()+"年"+
+  	            (datestr.getMonth()+1) +"月"+
+  	             datestr.getDate()+"日 "+
+  	             weekday[datestr.getDay()]);
+		var scoreStr =  "小明:87;小花:81;小红:97;小天:76;小张:74;小小:94;小西:90;小伍:76;小迪:64;小曼:76";
+		var ScoreArr = scoreStr.split(";");
+		var sum=0;
+		for(var i =0;i<ScoreArr.length;i++){
+			sum += parseInt(ScoreArr[i].substr(ScoreArr[i].indexOf(":")+1));
+		}
+
+		document.write(" <br />班级的总成绩为： " + sum);
+		document.write("<br />班级的平均成绩为：" + Math.round(sum/ScoreArr.length));
+	</script>
+</head>
+<body>
+</body>
+</html>
