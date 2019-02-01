@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>DOM0级事件处理程序</title>
+	<script type="text/javascript">
+		function showMes(){
+			alert('hello');
+		}
+		window.onload = function(){
+			var butn2 = document.getElementById('btn2');
+		butn2.onclick = function(){
+			alert("dcuidsbusd");
+		}
+		}
+		
+
+		//注意script的位置问题，需要在div之后，否则需要添加window.onload
+		
+	</script>
+</head>
+<body>
+<div id="box">
+	<input type="button" value="按钮1" id="btn1" onclick="showMes()">
+	<input type="button" value="按钮2" id="btn2">
+</div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>IE事件的处理程序</title>
+</head>
+<body>
+	<div id="box">
+		<input type="button" id="btn1" value="按钮1" onclick="showMes()">
+		<input type="button" id="btn2" value="按钮2">
+		<input type="button" id="btn3" value="按钮3">
+	</div>
+
+<script type="text/javascript">
+	//ie事件处理程序
+	//attachEvent()添加事件
+	//detachEvent()删除事件
+	//参数不需要布尔值
+	//IE和Opera
+	function showMes(){
+		alert('ahhhh');
+	}
+	var butn2 = document.getElementById('btn2');
+		butn2.onclick = function(){
+			alert("dcuidsbusd");
+		}
+	var eventUtil = {
+		//添加句柄
+		addHandler:function(element,type,hanlder){
+			if(element.addEventListener){
+				element.addEventListener(type,hanlder,false);
+			}
+			else if(element.attachEvent){
+				element.attachEvent('on'+type,hanlder);
+			}
+			else{
+				element['on'+type] = hanlder;
+			}
+		},
+		delHandler:function(element,type,hanlder){
+			if(element.removeEventListener){
+				element.removeEventListener(type,hanlder,false);
+			}
+			else if(element.detachEvent){
+				element.detachEvent('on'+type,hanlder);
+			}
+			else{
+				element['on'+type] = null;
+			}
+		}
+	}
+	eventUtil.addHandler(btn3,'click',showMes);
+	eventUtil.delHandler(btn3,'click',showMes);
+</script>
+</body>
+</html>

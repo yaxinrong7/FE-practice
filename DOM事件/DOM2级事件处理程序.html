@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>DOM2级事件处理程序</title>
+</head>
+<body>
+	<div id="box">
+		<input type="button" id="btn1" value="按钮1" onclick="showMes()">
+		<input type="button" id="btn2" value="按钮2">
+		<input type="button" id="btn3" value="按钮3">
+	</div>
+<script type="text/javascript">
+	//定义了两个方法：
+	//用于处理指定和删除 事件处理程序的操作
+	//addEventListener()和removeEventListner()
+	//接收三个参数 要处理的事件名，作为事件处理程序的函数和布尔值
+	function showMes(){
+		alert('sfuc');
+	}
+	var butn2 = document.getElementById('btn2');
+		butn2.onclick = function(){
+			alert("dcuidsbusd");
+		}
+	btn3.addEventListener('click',showMes,false);
+	btn3.addEventListener('click',function(){
+		alert(this.value);
+	},false);
+	//btn3.removeEventListener('click',showMes,false);
+</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>IE事件的处理程序</title>
+</head>
+<body>
+	<div id="box">
+		<input type="button" id="btn1" value="按钮1" onclick="showMes()">
+		<input type="button" id="btn2" value="按钮2">
+		<input type="button" id="btn3" value="按钮3">
+		<a href="https://www.baidu.com" id="go">跳转</a>
+	</div>
+
+<script type="text/javascript">
+	function showMes(event){
+		alert(event.target.nodeName);
+		event.stopPropagation();//阻止事件冒泡
+	}
+	function stopGoto(event){
+		event.stopPropagation();
+		event.preventDefault();
+	}
+	function showBox(){
+		alert('点击了box');
+	}
+	var btn2 = document.getElementById('btn2');
+	var btn1 = document.getElementById('btn1');
+	var btn3 = document.getElementById('btn3');
+	var box = document.getElementById('box');
+	var ago = document.getElementById('go');
+		btn2.onclick = function(){
+			alert("dcuidsbusd");
+		}
+	var eventUtil = {
+		//添加句柄
+		addHandler:function(element,type,hanlder){
+			if(element.addEventListener){
+				element.addEventListener(type,hanlder,false);
+			}
+			else if(element.attachEvent){
+				element.attachEvent('on'+type,hanlder);
+			}
+			else{
+				element['on'+type] = hanlder;
+			}
+		},
+		delHandler:function(element,type,hanlder){
+			if(element.removeEventListener){
+				element.removeEventListener(type,hanlder,false);
+			}
+			else if(element.detachEvent){
+				element.detachEvent('on'+type,hanlder);
+			}
+			else{
+				element['on'+type] = null;
+			}
+		}
+	}
+	eventUtil.addHandler(btn3,'click',showMes);
+	eventUtil.addHandler(box,'click',showBox);
+	eventUtil.addHandler(ago,'click',stopGoto);
+	//eventUtil.delHandler(btn3,'click',showMes);
+</script>
+</body>
+</html>
