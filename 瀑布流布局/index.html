@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"/></script>
+<title>带有分散效果的瀑布流</title>
+<style type="text/css">
+    *{padding: 0;margin:0;}
+    #main{
+        position: relative;
+    }
+    .pin{
+        padding: 15px 0 0 15px;
+        float:left;
+        position:absolute;
+    }
+    .box{
+        padding: 10px;
+        border:1px solid #ccc;
+        box-shadow: 0 0 6px #ccc;
+        border-radius: 5px;
+    }
+    .box img{
+        width:162px;
+        height:auto;
+    }
+</style>
+<script>
+    // 完美运动框架
+function startMove(obj,json,fn){//    json={attr1:iT1,attr2:iT2}  opacity:0.5
+    var flag = true;
+    clearInterval(obj.timer);
+    obj.timer = setInterval(function(){
+            flag = true;
+            var speed = 0,
+                icur = null;
+            for(var attr in json)
+            {
+                //  判断速度
+                if(attr == "opacity"){
+                    icur = Math.round(parseFloat(getStyle(obj,attr))*100);
+                }else{
+                    icur = parseInt(getStyle(obj,attr));
+                }
+                speed = (json[attr] - icur)/8;
+                speed = speed>0?Math.ceil(speed):Math.floor(speed);
+                
+                //  判断临界值
+                if(icur != json[attr]){//   有一个属性没达到要求iT，flag就等于false
+                    flag = false;
+                }
+                if(attr == "opacity"){
+                    obj.style.filter = "alpha(opacity="+(icur+speed)+")";
+                    obj.style.opacity = (icur+speed)/100;
+                }else{
+                    obj.style[attr] = icur+speed+"px";
+                }       
+            }
+                if(flag){// 全部属性都达到要求iT拉
+                    clearInterval(obj.timer);
+                    //alert(333);
+                    if(fn)fn();
+                    //console.log("fn:"+fn);fn();
+                }
+                //console.log("flag"+flag); 
+        },30);
+}
+
+
+//  获取style
+function getStyle(obj,attr){
+    if(obj.currentStyle){
+        return obj.currentStyle[attr];  
+    }else{
+        return getComputedStyle(obj,false)[attr];
+    }
+}
+</script>
+<script>
+window.onload = function(){
+   // 调用waterfall函数
+   waterfall();
+   
+    var dataInt={'data':[{'src':'1.jpg'},{'src':'2.jpg'},{'src':'3.jpg'},{'src':'4.jpg'}]};
+    window.onscroll=function(){
+       // 拖动滚动条时
+     }
+};
+function waterfall(){
+ // 计算及定位数据块显示分散效果
+    //1、计算浏览器宽、高
+    var bHeight = document.body.clientHeight || document.documentElement.clientHeight;
+    
+    var bWidth = document.body.clientWidth;
+  //  alert(bHeight);
+    var pin = getClassName("pin","main");//(classname,parentId)
+    console.log("pin.length:"+pin.length+"bWidth"+bWidth);
+    var top,left;
+    for(var i=0;i<pin.length;i++){
+        //保证其在浏览器可见区域中心分散
+        pin[i].style.top = ((bHeight/2-pin[i].offsetHeight) +(Math.floor(Math.random()*10)<5?-1:1)* Math.floor(Math.random()*200))+ "px";
+        pin[i].style.left = ((bWidth/2-pin[i].offsetWidth) +(Math.floor(Math.random()*10)<5?-1:1)* Math.floor(Math.random()*300)) + "px";
+    }
+    setTimeout(function(){
+        //动画实现瀑布流排列
+        //1、得到其原本应在的top和left
+        var pinW = pin[0].offsetWidth;
+        
+        var num = Math.floor(bWidth/pinW);
+        console.log("num"+num);
+        var oH =[];
+        var json,oMin,ind;
+        for(var i=0;i<pin.length;i++){
+            if(i<num){
+                oH[i] = pin[i].offsetHeight;
+                json = {top:0,left:(i*pinW)};
+                startMove(pin[i],json);
+            }else{
+                oMin = Math.min.apply(null,oH);
+                ind = getIndex(oH,oMin);
+                json = {top:oMin,left:(pinW*ind)};
+                startMove(pin[i],json);
+                oH[ind] += pin[i].offsetHeight;
+            }
+        }
+    },1000);
+}
+
+function checkscrollside(){
+  // 检测是否具备了加载数据块的条件
+}
+
+//模拟document.getElementsByClassName
+function getClassName(clsName,perId){
+    var per;
+    if(perId){
+        per = document.getElementById(perId).getElementsByTagName("*");
+    }else{
+        per = document.getElementsByTagName("*");
+    }
+    var eles = [];  //存放找到的classname
+    for(var i=0;i<per.length;i++){
+        if(per[i].className == clsName){
+            eles.push(per[i]);
+        }
+    }
+    return eles;
+}
+//获取数组中值为value的下标
+function getIndex(arr,value){
+    for(var i=0;i<arr.length;i++)
+    {
+        if(arr[i] == value)
+            return i;
+    }
+    return -1;
+}
+</script>
+</head>
+<body>
+<div id="main">
+    <div class="pin">
+        <div class="box">
+            <img src="http://img.mukewang.com/53edadad0001efe202000070.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="http://img.mukewang.com/53edad54000119fb03300130.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="http://img.mukewang.com/53edad690001260a03300130.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="http://img.mukewang.com/53edad7a0001cde803300130.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="http://img.mukewang.com/53edacdd0001b8e804820302.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="http://img.mukewang.com/53edadad0001efe202000070.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="http://img.mukewang.com/53edad54000119fb03300130.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="http://img.mukewang.com/53edad690001260a03300130.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="http://img.mukewang.com/53edad7a0001cde803300130.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="http://img.mukewang.com/53edacdd0001b8e804820302.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="http://img.mukewang.com/53edadad0001efe202000070.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="http://img.mukewang.com/53edad54000119fb03300130.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="http://img.mukewang.com/53edad690001260a03300130.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="http://img.mukewang.com/53edad7a0001cde803300130.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="http://img.mukewang.com/53edacdd0001b8e804820302.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="http://img.mukewang.com/53edadad0001efe202000070.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="http://img.mukewang.com/53edad54000119fb03300130.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="http://img.mukewang.com/53edad690001260a03300130.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="http://img.mukewang.com/53edad7a0001cde803300130.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="http://img.mukewang.com/53edacdd0001b8e804820302.jpg"/>
+        </div>
+    </div>
+</div>
+</body>
+</html>
