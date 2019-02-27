@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>bing search</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<style type="text/css">
+		body{
+			background-color: #333;
+		}
+		.bg-div{
+			background-image: url(images/river.jpg);
+			width: 1228px;
+			height: 690px;
+			margin: 0 auto;
+			position: relative;
+		}
+		.logo{
+			background-image: url(images/logo.png);
+			width: 107px;
+			height: 53px;
+			float: left;
+			margin: -4px 18px 0 0 ;
+		}
+		form{
+			float: left;
+			background-color: white;
+			padding: 5px;
+		}
+		.search-text{
+			border: none;
+			float: left;
+			height: 25px;
+			line-height: 25px;
+			outline: none;
+			width: 350px;
+		}
+		.search-button{
+			border: none;
+			background-image: url(images/search-button.png);
+			width: 29px;
+			height: 29px;
+			float: left;
+			cursor: pointer;
+		}
+		.search-box{
+			position: absolute;
+			left: 300px;
+			top: 200px;
+		}
+		.suggest{
+			background-color: white;
+			width: 388px;
+			border: 1px solid #999;
+		}
+		.suggest ul{
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+		.suggest ul li{
+			padding: 3px;
+			font-size: 14px;
+			line-height: 25px;
+			cursor: pointer;
+		}
+		.suggest ul li:hover{
+			text-decoration: underline;
+			background-color: #e5e5e5;
+		}
+	</style>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js">
+		
+	</script>
+</head>
+<body>
+	<div class="bg-div">
+		<div class="search-box">
+		<div class="logo"></div>
+		<form id="search-form" action="https://cn.bing.com/search" target="_blank" id="search-form">
+			<input type="text" class="search-text" name="q" id="search-input" autocomplete="off">
+			<input type="submit" class="search-button" value="">
+		</form>
+	    </div>
+	</div>
+	<div class="suggest" id="search-suggest" style="display: none;position: absolute; top: 100px; left: 100px">
+		<ul id="search-result">
+			<li>搜索结果1</li>
+			<li>搜索结果2</li>
+			<li>搜索结果3</li>
+		</ul>
+	</div>
+	<script type="text/javascript">
+		$("#search-input").bind('keyup',function(){
+			var jqueryInput = $(this);
+			var searchText = jqueryInput.val();
+			$.get('http://api.bing.com/qsonhs.aspx?q='+searchText,function(d){
+				var d = d.AS.Results[0].Suggests;
+				var ht = '';
+				for(var i=0;i<d.length;i++){
+					ht += '<li>' + d[i].Txt + '</li>';
+				}
+				$("#search-result").html(ht);
+				$("#search-suggest").show().css({
+			        top: $("#search-form").offset().top + $("#search-form").height()+10,
+		        	left: $("#search-form").offset().left,
+			        position:'absolute'
+			});
+			},'json');		
+
+		});
+		$(document).bing('click',function(){
+			$("#search-suggest").hide();
+		})
+		
+	</script>
+</body>
+</html>
